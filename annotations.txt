@@ -56,6 +56,9 @@ module.exports = {
         path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js',
     },
+    devServer: {
+        contentBase: path.resolve(__dirname, 'public'),
+    },
     module: {
         rules: [
             {
@@ -76,7 +79,8 @@ Depois é necessário exportar um objeto de configurações.
 
     1. **entry** indica onde estará seu arquivo de entrar da aplicação.
     2. **output** indica onde o webpack vai gerar o arquivo empacotado e qual o nome ele receberá.
-    3. **module** define as regras que o webpack deverá levar em consideração e qual loader deverá utilizar para cada caso.
+    3. **devServer** define onde o pacode **webpack-dev-server** agirá para que funcione a funcionalidade hot reload. Indique sempre onde estará seu arquivo index.html e também o bundle.js
+    4. **module** define as regras que o webpack deverá levar em consideração e qual loader deverá utilizar para cada caso.
 
 ### Explicando melhor a propriedade **module**
 
@@ -126,26 +130,47 @@ Depois de criar o arquivo index, dendo da pasta src, vá a té seu arquivo **pac
 
 ```json
 "scripts": {
-    "build": "webpack --mode development"
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development",
 },
 ```
 
-Agora sempre que rodarmos o comando abaixo, teremos o nosso webpack gerando o empacotamento de todo nosso código javascript.
+Para finalizar o post e certificar que o bundle está sendo gerado corretamente, crie um arquivo chamado **index.html**, dentro da pasta public e adicione o seguinte código:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starting with React</title>
+</head>
+<body>
+    <h1>Hello REACTJS</h1>
+    
+    <script src="./bundle.js"></script>
+</body>
+</html>
+```
+
+Basta chamar um único arquivo javascript para a aplicação inteira.
+
+Desta forma estará trabalhando de maneira profissional e otimizada, utilizando padrões corretos de desenvolvimento.
+
+Depois de todo este processo acima, bata rodar o comando abaixo:
 
 ```sh
-yarn build
+yarn dev
 
 // ou
 
-npm run build
+npm run dev
 ```
 
-### Fazendo teste no HTML
+Pronto agora você está pronto para iniciar seus estudos com React ou até mesmo qualquer estudo que queira fazer sobre javascript.
 
-Para finalizar nosso post e certificar que o bundle está sendo gerado corretamente, crie um arquivo chamado **index.html**, dentro da pasta public e adicione o seguinte código:
+Claro que pode ser que precise instalar algumas libs diferentes, dependendo do que for estudar, mas quis mostrar como é possível entender e utilizar tecnologias como webpack e babel de forma descomplicada.
 
+Muitas vezes você já até utilizou mas ainda não entendia para que servia cada configuração.
 
-```html
-
-```
-
+Thiago Valls
