@@ -6,6 +6,6 @@ export const Title = styled.h1`
   font-family: Arial, Helvetica, sans-serif;
 
   small {
-    color: #999;
+    color: #fff;
   }
 `;
