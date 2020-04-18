@@ -1,25 +1,30 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdShoppingBasket } from 'react-icons/md';
+import { connect } from 'react-redux';
 
 import { Container, Cart } from './style';
 
 import logo from '../../assets/images/logo.svg';
 
-export default function Header() {
+function Header({ countBag }) {
   return (
-      <Container>
-        <Link to="/">
-          <img src={logo} alt="Rocketshoes"/>
-        </Link>
+    <Container>
+      <Link to="/">
+        <img src={logo} alt="Rocketshoes" />
+      </Link>
 
-        <Cart to="/cart">
-          <div>
-            <strong>Meu Carrinho</strong>
-            <span>3 Itens</span>
-          </div>
-          <MdShoppingBasket size={36} color="#fff"/>
-        </Cart>
-      </Container>
+      <Cart to="/cart">
+        <div>
+          <strong>Meu Carrinho</strong>
+          <span>{countBag} Itens</span>
+        </div>
+        <MdShoppingBasket size={36} color="#fff" />
+      </Cart>
+    </Container>
   );
 }
+
+export default connect((state) => ({
+  countBag: state.cart.length,
+}))(Header);

@@ -1,64 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
   MdDelete,
 } from 'react-icons/md';
+import { connect } from 'react-redux';
+
 import { Container, ProductTable, Total } from './styles';
 
-export default function Cart() {
-  return (
-    <Container>
-      <ProductTable>
-        <thead>
-          <tr>
-            <th />
-            <th>Product</th>
-            <th>QTD</th>
-            <th>SUBTOTAL</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img
-                src="https://static.netshoes.com.br/produtos/tenis-mizuno-wave-eagle-2-masculino/20/D16-4893-120/D16-4893-120_zoom1.jpg?ts=1570451717&ims=326x"
-                alt="Tenis Nike"
-              />
-            </td>
-            <td>
-              <strong>Tênis muito massa</strong>
-              <span>R$192,30</span>
-            </td>
-            <td>
-              <div>
-                <button type="button">
-                  <MdRemoveCircleOutline size={20} color="#7159c1" />
-                </button>
-                <input type="number" readOnly value={1} />
-                <button type="button">
-                  <MdAddCircleOutline size={20} color="#7159c1" />
-                </button>
-              </div>
-            </td>
-            <td>R$1923,00</td>
-            <td>
-              <button type="button">
-                <MdDelete size={20} color="#7159c1" />
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </ProductTable>
+class Cart extends Component {
+  render() {
+    const { items, total } = this.props;
 
-      <footer>
-        <button type="button">Finalizar pedido</button>
-        <Total>
-          <span>TOTAL</span>
-          <strong>R$1923,00</strong>
-        </Total>
-      </footer>
-    </Container>
-  );
+    return (
+      <Container>
+        <ProductTable>
+          <thead>
+            <tr>
+              <th />
+              <th>Product</th>
+              <th>QTD</th>
+              <th>SUBTOTAL</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <img src={item.image} alt={item.title} />
+                </td>
+                <td>
+                  <strong>{item.title}</strong>
+                  <span>{item.price}</span>
+                </td>
+                <td>
+                  <div>
+                    <button type="button">
+                      <MdRemoveCircleOutline size={20} color="#7159c1" />
+                    </button>
+                    <input type="number" readOnly value={1} />
+                    <button type="button">
+                      <MdAddCircleOutline size={20} color="#7159c1" />
+                    </button>
+                  </div>
+                </td>
+                <td>{1 * item.price}</td>
+                <td>
+                  <button type="button">
+                    <MdDelete size={20} color="#7159c1" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </ProductTable>
+
+        <footer>
+          <button type="button">Finalizar pedido</button>
+          <Total>
+            <span>TOTAL</span>
+            <strong>{total}</strong>
+          </Total>
+        </footer>
+      </Container>
+    );
+  }
 }
+
+export default connect((state) => ({
+  items: state.cart,
+  total: 1000,
+}))(Cart);
