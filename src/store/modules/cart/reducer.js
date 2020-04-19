@@ -28,6 +28,28 @@ export default function cart(state = [], action) {
         }
       });
 
+    case '@cart/INCREASE':
+      return produce(state, (draft) => {
+        const productIndex = draft.findIndex(
+          (stateItem) => stateItem.id === action.id
+        );
+
+        if (productIndex >= 0) {
+          draft[productIndex].amount += 1;
+        }
+      });
+
+    case '@cart/DECREASE':
+      return produce(state, (draft) => {
+        const productIndex = draft.findIndex(
+          (stateItem) => stateItem.id === action.id
+        );
+
+        if (productIndex >= 0 && draft[productIndex].amount > 1) {
+          draft[productIndex].amount -= 1;
+        }
+      });
+
     default:
       return state;
   }
