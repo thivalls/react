@@ -36,7 +36,7 @@ export default function cart(state = [], action) {
           (stateItem) => stateItem.id === action.id
         );
 
-        if (productIndex >= 0 && draft[productIndex].amount > 1) {
+        if (productIndex >= 0) {
           draft[productIndex].amount -= 1;
         }
       });

@@ -19,7 +19,15 @@ export function removeFromCart(id) {
   };
 }
 
-export function changeAmount(id, type) {
+export function changeAmountRequest(id, action) {
+  return {
+    type: `@cart/CHANGE_AMOUNT_REQUEST`,
+    id,
+    action,
+  };
+}
+
+export function changeAmountSuccess(id, type) {
   return {
     type: `@cart/${type}`,
     id,
